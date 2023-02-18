@@ -24,6 +24,7 @@ const bulletComProp = {
 const gameBackground = {
     gameBox: document.querySelector(".game"), //패럴럭스 효과를 위해 game 엘리먼트 추가
     //게임 엘리먼트에 히어로가 이동한 값을 적용
+    gameSky: document.querySelector(".sky"),
 };
 
 /**
@@ -40,6 +41,9 @@ const setGameBackground = () => {
     ); //히어로가 중간에 위치 할때 배경 움직임
 
     gameBackground.gameBox.style.transform = `translateX(${parallaxValue}px)`; //히어로가 이동한 만큼 배경 이동
+    gameBackground.gameSky.style.transform = `translateX(${
+        parallaxValue * 0.2
+    }px)`; //히어로가 이동한 만큼 하늘 배경 이동
 };
 
 /**
