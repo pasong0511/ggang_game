@@ -52,6 +52,12 @@ const windowEvent = () => {
     window.addEventListener("keyup", (event) => {
         key.keyDown[key.keyValue[event.key]] = false;
     });
+
+    //화면의 리사이즈가 발생 했을 때, 수리검 등의 위치를 현재 화면의 높이와 너비에 맞게 재조정
+    window.addEventListener("resize", (event) => {
+        gameProp.screenWidth = window.innerWidth; //현재 화면의 너비
+        gameProp.screenHeight = window.innerHeight; //현재 화면의 높이
+    });
 };
 
 /**
