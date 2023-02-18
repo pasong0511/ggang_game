@@ -16,7 +16,8 @@ class Hero {
             this.el.classList.add("run");
             this.el.classList.add("flip"); //왼쪽 방향 눌렀을때 <- 방향 이동
 
-            this.moveX = this.moveX - this.speed; //<- 왼쪽으로 이동해야하기 때문에 마이너스 값(스피드 값 빼면서 감소)
+            //0보다 작은 경우 0까지만 이동(왼쪽에서 벗어남 방지)
+            this.moveX = this.moveX <= 0 ? 0 : this.moveX - this.speed; //<- 왼쪽으로 이동해야하기 때문에 마이너스 값(스피드 값 빼면서 감소)
         } else if (key.keyDown["right"]) {
             this.direction = "right";
 
@@ -96,7 +97,10 @@ class Bullet {
     init() {
         this.bulletDirection = hero.direction === "left" ? "left" : "right"; //히어로가 왼쪽을 보고있다면, 수리검이 왼쪽 방향에서 생성
 
-        this.x = hero.moveX + hero.size().width / 2; //수리검 위치는 히어로가 이동한 거리를 기준으로 담아준다
+        this.x =
+            this.bulletDirection === "right"
+                ? hero.moveX + hero.size().width / 2
+                : hero.moveX - hero.size().width / 2; //수리검 위치는 히어로가 이동한 거리를 기준으로 담아준다
         this.y = hero.position().bottom - hero.size().height / 2;
         this.distance = this.x; //수리검 생성 위치를 히어로 위치로 생성
         //수리검의 위치

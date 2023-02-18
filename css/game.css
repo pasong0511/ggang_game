@@ -1,6 +1,7 @@
 .game_app {
     position: relative;
     height: 100vh;
+    min-width: 1280px;
 }
 .game_app {
     position: relative;
@@ -89,7 +90,8 @@
     transform: rotateY(180deg);
 }
 
-.hero_box .hero.run {
+.hero_box .hero.run,
+.hero_box .hero.attack {
     height: 100%;
     background-image: url("../images/ninja_run.png");
     background-size: 1498px 182px;
