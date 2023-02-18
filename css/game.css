@@ -63,6 +63,11 @@
     animation: hero_idle 0.7s infinite steps(10); /*키프레임을 애니메이션에 추가한다*/
 }
 
+/* 오른쪽, 왼쪽 방향 전환을 위해서 flip 클래스에 방향 전환 */
+.hero_box .hero.flip {
+    transform: rotateY(180deg);
+}
+
 .hero_box .hero.run {
     height: 100%;
     background-image: url("../images/ninja_run.png");

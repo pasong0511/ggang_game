@@ -5,25 +5,27 @@ const key = {
         ArrowLeft: "left",
         ArrowRight: "right",
         ArrowUp: "up",
+        x: "attack",
     },
 };
 
 const windowEvent = () => {
-    //키 누를때 이벤트
+    //키 누를 때 이벤트
     window.addEventListener("keydown", (event) => {
-        console.log(event);
-
         key.keyDown[key.keyValue[event.key]] = true;
-        console.log(key.keyDown);
+        hero.keyMotion();
     });
 
+    //키 떼었을 때 발생하는 이벤트
     window.addEventListener("keyup", (event) => {
         key.keyDown[key.keyValue[event.key]] = false;
-        console.log(key.keyDown);
+        hero.keyMotion();
     });
 };
 
+let hero;
 const init = () => {
+    hero = new Hero(".hero"); //클래스 이름 넘기기
     windowEvent();
 };
 
