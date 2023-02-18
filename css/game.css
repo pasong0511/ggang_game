@@ -82,7 +82,7 @@
     height: 100%;
     background-image: url("../images/ninja_attack.png");
     background-size: 3770px 458px;
-    animation: hero_attack 0.7s infinite steps(10);
+    animation: hero_attack 0.7s 1 steps(10); /*공격을 1회만 반복*/
 }
 
 .hero_bullet {

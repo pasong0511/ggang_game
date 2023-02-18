@@ -105,5 +105,36 @@ class Bullet {
         this.distance += this.speed; //수리검의 위치를 30식 계속 증가, 이 값을 수리검 거리에 누적해서 이동시킨다.
 
         this.el.style.transform = `translate(${this.distance}px, ${this.y}px)`;
+        this.crashBullet();
+    }
+
+    /**
+     * 수리검의 위치를 알아내는 함수(상속, 오버라이딩으로 중복을 제거할 수 있음)
+     */
+    position() {
+        return {
+            left: this.el.getBoundingClientRect().left,
+            right: this.el.getBoundingClientRect().right,
+            top: gameProp.screenHeight - this.el.getBoundingClientRect().top, //화면 bottom을 기준으로 한 히어로의 머리 위치
+            bottom:
+                gameProp.screenHeight -
+                this.el.getBoundingClientRect().top -
+                this.el.getBoundingClientRect().height, //아래를 기준으로한 바텀 위치
+        };
+    }
+
+    /**
+     * 수리검 충돌 시 수리검 제거
+     * 수리검이 이동할 때마다 호출되어 화면을 벗어났는지, 충돌을 체크했는지 체크
+     */
+    crashBullet() {
+        //수리검의 왼쪽 위치가 스크린보다 크다면 : 수리검이 화면 오른쪽을 벗어나는 경우
+        //수리검의 오른쪽 위치가 스크린보다 작다면 : 수리검이 화면 왼쪽을 벗어나는 경우
+        if (
+            this.position().left > gameProp.screenWidth ||
+            this.position().right < 0
+        ) {
+            this.el.remove();
+        }
     }
 }
