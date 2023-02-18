@@ -91,7 +91,8 @@
 }
 
 .hero_box .hero.run,
-.hero_box .hero.attack {
+.hero_box .hero.run.attack {
+    /*달리면서 공격했을 때, 달리는 모션*/
     height: 100%;
     background-image: url("../images/ninja_run.png");
     background-size: 1498px 182px;
