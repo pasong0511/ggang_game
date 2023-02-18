@@ -23,8 +23,13 @@ class Hero {
 
         //x 눌러서 공격 클래스 추가
         if (key.keyDown["attack"]) {
-            this.el.classList.add("attack");
-            new Bullet(); //공격키를 눌렀을 때 수리검 클래스 생성
+            //수리검 중복 나감 방지
+            if (!bulletComProp.launch) {
+                this.el.classList.add("attack");
+                bulletComProp.arr.push(new Bullet()); //공격키를 눌렀을 때 수리검 클래스 생성해서 수리검 관리 배열에 추가
+
+                bulletComProp.launch = true; //launch을 true로 변경해서 수리검 던짐 중지
+            }
         }
 
         //사용자가 모두 키를 뗀 경우 run 클래스 삭제해서 대기모드로 변경
@@ -35,6 +40,7 @@ class Hero {
         //키를 뗀 경우
         if (!key.keyDown["attack"]) {
             this.el.classList.remove("attack");
+            bulletComProp.launch = false; //수리검 다시 던질 수 있도록 세팅
         }
 
         //hero 엘리먼트의 부모인 hero_box에 translateX를 이용해서 hero_box의 위치를 변경시킨다.
@@ -76,15 +82,28 @@ class Bullet {
         this.el.className = "hero_bullet";
         this.x = 0;
         this.y = 0;
+        this.speed = 30;
+        this.distance = 0;
         this.init();
     }
 
     init() {
         this.x = hero.position().left + hero.size().width / 2; //수리검 위치는 히어로의 위치를 기준으로 담아준다
         this.y = hero.position().bottom - hero.size().height / 2;
-
+        this.distance = this.x; //수리검 생성 위치를 히어로 위치로 생성
         //수리검의 위치
         this.el.style.transform = `translate(${this.x}px, ${this.y}px)`;
         this.parentNode.appendChild(this.el); //수리검 game엘리먼트에 추가
+    }
+
+    /**
+     * 수리검의 이동을 담당하는 함수
+     * renderGame()에서 수리검을 계속 호출해서 수리검을 이동시킨다.
+     */
+    moveBullent() {
+        console.log(this.distance);
+        this.distance += this.speed; //수리검의 위치를 30식 계속 증가, 이 값을 수리검 거리에 누적해서 이동시킨다.
+
+        this.el.style.transform = `translate(${this.distance}px, ${this.y}px)`;
     }
 }

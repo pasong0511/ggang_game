@@ -15,6 +15,12 @@ const gameProp = {
     screenHeight: window.innerHeight, //화면 높이
 };
 
+//생성된 수리검을 관리할 배열을 만든다.
+const bulletComProp = {
+    launch: false, //수리검이 중복해서 나가는 것을 방지하기 위한 플래그
+    arr: [], //attack 키를 눌렀을 때 생성된 수리검 인스턴스를 담음
+};
+
 /**
  * renderGame() : 키가 눌렸을 떄 키 딜레이를 줄야서 캐릭터가 자연스럽게 움직 일 수 있게 하는 함수
  * 히어로 캐릭터의 움직임이 자연스럽지 못하다
@@ -27,6 +33,12 @@ const gameProp = {
  *  */
 const renderGame = () => {
     hero.keyMotion(); //키가 눌렸을 때 발생하는 이벤트는 renderGame함수에서 계속 호출
+
+    //다수의 수리검을 관리하기 위해서 수리검 개수만큼 반복
+    bulletComProp.arr.forEach((arr, i) => {
+        arr.moveBullent();
+    });
+
     window.requestAnimationFrame(renderGame);
 };
 
