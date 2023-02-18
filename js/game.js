@@ -21,6 +21,27 @@ const bulletComProp = {
     arr: [], //attack 키를 눌렀을 때 생성된 수리검 인스턴스를 담음
 };
 
+const gameBackground = {
+    gameBox: document.querySelector(".game"), //패럴럭스 효과를 위해 game 엘리먼트 추가
+    //게임 엘리먼트에 히어로가 이동한 값을 적용
+};
+
+/**
+ * 배경을 계속 이동시켜주는 함수
+ * 히어로가 이동한 만큼 배경도 이동시켜준다.
+ * 히어로가 움직인 방향의 반대방향으로 움직여줘야한다
+ * renderGame() 함수에서 계속 호출하면서 배경을 계속 이동시켜준다.
+ */
+const setGameBackground = () => {
+    //이 값이 0부터 시작한다면 히어로가 중간쯤 왔을 때 배경이 움직임
+    let parallaxValue = Math.min(
+        0,
+        (hero.moveX - gameProp.screenWidth / 3) * -1
+    ); //히어로가 중간에 위치 할때 배경 움직임
+
+    gameBackground.gameBox.style.transform = `translateX(${parallaxValue}px)`; //히어로가 이동한 만큼 배경 이동
+};
+
 /**
  * renderGame() : 키가 눌렸을 떄 키 딜레이를 줄야서 캐릭터가 자연스럽게 움직 일 수 있게 하는 함수
  * 히어로 캐릭터의 움직임이 자연스럽지 못하다
@@ -33,7 +54,7 @@ const bulletComProp = {
  *  */
 const renderGame = () => {
     hero.keyMotion(); //키가 눌렸을 때 발생하는 이벤트는 renderGame함수에서 계속 호출
-
+    setGameBackground(); //배경을 이동시켜주는 함수 계속 호출
     //다수의 수리검을 관리하기 위해서 수리검 개수만큼 반복
     bulletComProp.arr.forEach((arr, i) => {
         arr.moveBullent();

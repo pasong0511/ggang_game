@@ -96,7 +96,7 @@ class Bullet {
     init() {
         this.bulletDirection = hero.direction === "left" ? "left" : "right"; //히어로가 왼쪽을 보고있다면, 수리검이 왼쪽 방향에서 생성
 
-        this.x = hero.position().left + hero.size().width / 2; //수리검 위치는 히어로의 위치를 기준으로 담아준다
+        this.x = hero.moveX + hero.size().width / 2; //수리검 위치는 히어로가 이동한 거리를 기준으로 담아준다
         this.y = hero.position().bottom - hero.size().height / 2;
         this.distance = this.x; //수리검 생성 위치를 히어로 위치로 생성
         //수리검의 위치
