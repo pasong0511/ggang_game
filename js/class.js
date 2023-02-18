@@ -39,4 +39,17 @@ class Hero {
         //hero 엘리먼트의 부모인 hero_box에 translateX를 이용해서 hero_box의 위치를 변경시킨다.
         this.el.parentNode.style.transform = `translateX(${this.moveX}px)`;
     }
+
+    /**
+     * getBoundingClientRect() : 엘리먼트의 left, right, top, width 등을 알 수 있는 함수
+     * 위치 값이 위 또는 아래에 위치값이 맞지 않으면 충돌 처리할 때 문제 발생
+     */
+    position() {
+        return {
+            left: this.el.getBoundingClientRect().left,
+            right: this.el.getBoundingClientRect().right,
+            top: gameProp.screenHeight - this.el.getBoundingClientRect().top, //화면 bottom을 기준으로 한 히어로의 머리 위치
+            bottom: this.el.getBoundingClientRect().top - gameProp.screenHeight, //아래를 기준으로한 바텀 위치
+        };
+    }
 }

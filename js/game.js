@@ -9,6 +9,12 @@ const key = {
     },
 };
 
+//화면 너비, 높이가 변경되었을 때 공통으로 사용할 값
+const gameProp = {
+    screenWidth: window.innerWidth, //화면 너비
+    screenHeight: window.innerHeight, //화면 높이
+};
+
 /**
  * renderGame() : 키가 눌렸을 떄 키 딜레이를 줄야서 캐릭터가 자연스럽게 움직 일 수 있게 하는 함수
  * 히어로 캐릭터의 움직임이 자연스럽지 못하다
@@ -45,6 +51,11 @@ const windowEvent = () => {
  * 이미지가 추가되는 것을 방지합니다.
  *
  * 처음 페이지를 불러올 때 모든 이미지를 로드해야 하므로, init 에서 호출한다.
+ *
+ * window.requestAnimationFrame() :
+ * 브라우저에게 수행하기를 원하는 애니메이션을 알리고
+ * 다음 리페인트가 진행되기 전에 해당 애니메이션을 업데이트하는 함수를 호출하게 합니다.
+ * 이 메소드는 리페인트 이전에 실행할 콜백을 인자로 받습니다.
  */
 const loadImg = () => {
     //미리 로드할 이미지는 배열에 담아둔다.
