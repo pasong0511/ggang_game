@@ -3,6 +3,7 @@ class Hero {
         this.el = document.querySelector(el);
         this.moveX = 0; //히어로가 이동할 거리
         this.speed = 16; //히어로의 스피드
+        this.direction = "right"; //히어로가 바라보는 방향(기본은 right)
     }
 
     /**
@@ -10,11 +11,15 @@ class Hero {
      */
     keyMotion() {
         if (key.keyDown["left"]) {
+            this.direction = "left";
+
             this.el.classList.add("run");
             this.el.classList.add("flip"); //왼쪽 방향 눌렀을때 <- 방향 이동
 
             this.moveX = this.moveX - this.speed; //<- 왼쪽으로 이동해야하기 때문에 마이너스 값(스피드 값 빼면서 감소)
         } else if (key.keyDown["right"]) {
+            this.direction = "right";
+
             this.el.classList.add("run");
             this.el.classList.remove("flip"); //flip 클래스 삭제해서 왼쪽 오른쪽 삭제
 
@@ -84,10 +89,13 @@ class Bullet {
         this.y = 0;
         this.speed = 30;
         this.distance = 0;
+        this.bulletDirection = "right";
         this.init();
     }
 
     init() {
+        this.bulletDirection = hero.direction === "left" ? "left" : "right"; //히어로가 왼쪽을 보고있다면, 수리검이 왼쪽 방향에서 생성
+
         this.x = hero.position().left + hero.size().width / 2; //수리검 위치는 히어로의 위치를 기준으로 담아준다
         this.y = hero.position().bottom - hero.size().height / 2;
         this.distance = this.x; //수리검 생성 위치를 히어로 위치로 생성
@@ -96,15 +104,23 @@ class Bullet {
         this.parentNode.appendChild(this.el); //수리검 game엘리먼트에 추가
     }
 
+    //수리검을 생성할 때 히어로의 방향을 체크해서 수리검 생성 방향을 결정
+
     /**
      * 수리검의 이동을 담당하는 함수
      * renderGame()에서 수리검을 계속 호출해서 수리검을 이동시킨다.
      */
     moveBullent() {
-        console.log(this.distance);
-        this.distance += this.speed; //수리검의 위치를 30식 계속 증가, 이 값을 수리검 거리에 누적해서 이동시킨다.
+        let setRotate = "";
+        //수리검을 생성할 때 히어로가 왼쪽을 바라보고 있다면
+        if (this.bulletDirection === "left") {
+            this.distance -= this.speed;
+            setRotate = "rotate(180deg)"; //수리검 방향 전환
+        } else {
+            this.distance += this.speed; //수리검의 위치를 30식 계속 증가, 이 값을 수리검 거리에 누적해서 이동시킨다.(수리검 오른쪽 이동)
+        }
 
-        this.el.style.transform = `translate(${this.distance}px, ${this.y}px)`;
+        this.el.style.transform = `translate(${this.distance}px, ${this.y}px) ${setRotate}`;
         this.crashBullet();
     }
 
