@@ -2,7 +2,7 @@ class Hero {
     constructor(el) {
         this.el = document.querySelector(el);
         this.moveX = 0; //히어로가 이동할 거리
-        this.speed = 16; //히어로의 스피드
+        this.speed = 11; //히어로의 스피드
         this.direction = "right"; //히어로가 바라보는 방향(기본은 right)
     }
 

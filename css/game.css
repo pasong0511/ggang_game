@@ -17,6 +17,7 @@
     background-image: url("../images/bg_bottom.png");
     background-repeat: repeat-x;
     background-size: auto 100%;
+    will-change: transform; /*transform을 사용하는 css 속성에 값이 변경될 속성에 대한 힌트를 미리 지정*/
 }
 
 .game_app .sky {
@@ -29,6 +30,7 @@
     background-image: url("../images/bg_top.png");
     background-repeat: repeat-x;
     background-size: auto 100%;
+    will-change: transform;
 }
 
 /* 가만히 있는 모션 */
@@ -68,6 +70,7 @@
     z-index: 100;
     width: 150px;
     height: 182px;
+    will-change: transform; /*transform을 사용하는 css 속성에 값이 변경될 속성에 대한 힌트를 미리 지정*/
 }
 
 .hero_box .hero {
@@ -110,4 +113,5 @@
     background-image: url("../images/hero_bullet.png");
     background-size: cover;
     background-repeat: no-repeat;
+    will-change: transform; /*transform을 사용하는 css 속성에 값이 변경될 속성에 대한 힌트를 미리 지정*/
 }
