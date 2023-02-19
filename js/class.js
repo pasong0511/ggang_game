@@ -204,7 +204,9 @@ class Monster {
         this.hpNode = document.createElement("div");
         this.hpNode.className = "hp";
         this.hpValue = hp;
-        this.hpTextNode = document.createTextNode(this.hpValue); //텍스트 노드 생성
+        this.defaultHpValue = hp;
+        this.progress = 0;
+        this.hpInner = document.createElement("span"); //텍스트 노드 생성
 
         this.positionX = positionX;
 
@@ -216,7 +218,7 @@ class Monster {
      * 몬스터를 화면(.game)에 추가
      */
     init() {
-        this.hpNode.appendChild(this.hpTextNode);
+        this.hpNode.appendChild(this.hpInner);
         this.el.appendChild(this.hpNode); //몬스터 박스에 추가
         this.el.appendChild(this.elChildren); //몬스터 박스에 추가
         this.parentNode.appendChild(this.el);
@@ -241,8 +243,9 @@ class Monster {
      */
     updateHp(index) {
         this.hpValue = Math.max(0, this.hpValue - hero.attackDamage); //몬스터 체력 - 히어로 공격력, 두개의 값중 큰 값이 나오게 해서 0로 안떨어지게 하자
-        this.el.childNodes[0].innerText = this.hpValue;
-        console.log("인덱스->", index);
+        this.progress = (this.hpValue / this.defaultHpValue) * 100; //프로그래스 퍼센트 구하기 현재 hp / 초기 hp * 100
+
+        this.el.children[0].children[0].style.width = this.progress + "%"; // 프로그래스 바에 퍼센트 대입
 
         //몬스터의 체력이 0이 되었을 때 dead() 호출
         if (this.hpValue === 0) {
@@ -255,7 +258,6 @@ class Monster {
      * 몬스터의 체력을 업데이트 하는 곳에서 호출
      */
     dead(index) {
-        console.log("뒤짐", index);
         this.el.classList.add("remove"); //서서히 사라지게 클래스 추가
 
         //몬스터가 remove 하면 바로 사라져서 "remove" 클래스를 먹지 않않는다 -> setTimeout을 사용해서 딜레이를 주자
