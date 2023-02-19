@@ -148,13 +148,36 @@ class Bullet {
      * 수리검이 이동할 때마다 호출되어 화면을 벗어났는지, 충돌을 체크했는지 체크
      */
     crashBullet() {
+        //수리검의 왼쪽 위치보다 몬스터의 왼쪽 위치보다 큰 경우 수리검 제거 &&
+        //수리검의 오른쪽 위치보다 몬스터의 오른쪽 위치보다 큰 경우 수리검 제거
+        if (
+            this.position().left > monster.position().left &&
+            this.position().right < monster.position().right
+        ) {
+            //수리검 배열만큼 돌면서 현재 충돌한 수리검 찾기
+            for (let i = 0; i < bulletComProp.arr.length; i++) {
+                //현재 충돌한 수리검을 찾는 조건문
+                //i번째 인스턴스가 햔재의 수리검 인스턴스와 같다면 : 현재 충돌한 수리검 찾기
+                if (bulletComProp.arr[i] === this) {
+                    bulletComProp.arr.splice(i, 1);
+                    this.el.remove();
+                }
+            }
+        }
+
         //수리검의 왼쪽 위치가 스크린보다 크다면 : 수리검이 화면 오른쪽을 벗어나는 경우
-        //수리검의 오른쪽 위치가 스크린보다 작다면 : 수리검이 화면 왼쪽을 벗어나는 경우
+        //수리검의 오른쪽 위치가 스크린보다 작다면 : 수리검이 화면 왼쪽을 벗어나는 경우 수리검 제거
         if (
             this.position().left > gameProp.screenWidth ||
             this.position().right < 0
         ) {
-            this.el.remove();
+            //수리검 배열만큼 돌면서 현재 화면 밖을 벗어난 수리검 찾기
+            for (let i = 0; i < bulletComProp.arr.length; i++) {
+                if (bulletComProp.arr[i] === this) {
+                    bulletComProp.arr.splice(i, 1);
+                    this.el.remove(); //수리검이 화면 밖으로 벗어나는 경우 수리검 엘리먼트 제거
+                }
+            }
         }
     }
 }
@@ -180,5 +203,17 @@ class Monster {
         this.parentNode.appendChild(this.el);
         console.log(this.elChildren);
         console.log(this.parentNode);
+    }
+
+    position() {
+        return {
+            left: this.el.getBoundingClientRect().left,
+            right: this.el.getBoundingClientRect().right,
+            top: gameProp.screenHeight - this.el.getBoundingClientRect().top, //화면 bottom을 기준으로 한 히어로의 머리 위치
+            bottom:
+                gameProp.screenHeight -
+                this.el.getBoundingClientRect().top -
+                this.el.getBoundingClientRect().height, //아래를 기준으로한 바텀 위치
+        };
     }
 }
