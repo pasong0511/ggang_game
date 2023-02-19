@@ -93,6 +93,29 @@ class Hero {
 
         const heroHpBox = document.querySelector(".state_box .hp span"); //hp 게이지에 추가
         heroHpBox.style.width = this.progress + "%"; //히어로 체력 퍼센트 대입
+
+        this.crash();
+
+        //히어로의 hp가 0인 경우 : 죽음
+        if (this.hpValue === 0) {
+            this.dead();
+        }
+    }
+
+    /**
+     * 히어로가 충돌했을 때 모션을 처리할 메소드
+     */
+    crash() {
+        this.el.classList.add("crash");
+        //충돌을 풀어주기 위해서 setTimeout으로 crash 클래스 제거
+        setTimeout(() => this.el.classList.remove("crash"), 400);
+    }
+
+    /**
+     * 히어로가 죽었을 때 모션을 처리할 메소드
+     */
+    dead() {
+        this.el.classList.add("dead");
     }
 }
 

@@ -64,6 +64,16 @@
     }
 }
 
+/*충돌하는 모션*/
+@keyframes hero_crash {
+    from {
+        background-position-x: 0px; /*0픽셀부터 시작*/
+    }
+    to {
+        background-position-x: -299px; /*<- 방향으로 이동*/
+    }
+}
+
 .hero_box {
     position: fixed;
     left: 0;
@@ -104,6 +114,19 @@
     background-image: url("../images/ninja_attack.png");
     background-size: 1498px 182px;
     animation: hero_attack 0.7s 1 steps(10); /*공격을 1회만 반복*/
+}
+
+.hero_box .hero.crash {
+    background-image: url("../images/ninja_crash.png");
+    background-size: 299px 182px;
+    animation: hero_crash 0.4s 1 steps(2);
+}
+
+.hero_box .hero.dead {
+    background-image: url("../images/ninja_dead.png");
+    background-size: 150px 182px;
+    transform: rotate(95deg);
+    animation: none; /*히어로에 기본 애니메이션 속성 들어가서 움찔거림*/
 }
 
 .hero_bullet {
