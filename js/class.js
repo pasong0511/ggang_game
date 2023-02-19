@@ -4,6 +4,7 @@ class Hero {
         this.moveX = 0; //히어로가 이동할 거리
         this.speed = 11; //히어로의 스피드
         this.direction = "right"; //히어로가 바라보는 방향(기본은 right)
+        this.attackDamage = 1000; //공격 대미지
     }
 
     /**
@@ -161,6 +162,9 @@ class Bullet {
                 if (bulletComProp.arr[i] === this) {
                     bulletComProp.arr.splice(i, 1);
                     this.el.remove();
+
+                    //몬스터와 수리검이 충돌했다면 체력 업데이트
+                    monster.updateHp();
                 }
             }
         }
@@ -211,8 +215,6 @@ class Monster {
         this.el.appendChild(this.elChildren); //몬스터 박스에 추가
         this.parentNode.appendChild(this.el);
         this.el.style.left = this.positionX + "px";
-
-        console.log(this.el);
     }
 
     position() {
@@ -225,5 +227,14 @@ class Monster {
                 this.el.getBoundingClientRect().top -
                 this.el.getBoundingClientRect().height, //아래를 기준으로한 바텀 위치
         };
+    }
+
+    /**
+     * 몬스터의 체력을 깍고 업데이트를 하는 함수
+     * 체력을 변경하는 메소드 이므로 몬스터와 수리검이 충돌할 때 호출
+     */
+    updateHp() {
+        this.hpValue = Math.max(0, this.hpValue - hero.attackDamage); //몬스터 체력 - 히어로 공격력, 두개의 값중 큰 값이 나오게 해서 0로 안떨어지게 하자
+        this.el.childNodes[0].innerText = this.hpValue;
     }
 }
