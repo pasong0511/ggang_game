@@ -169,7 +169,7 @@ class Bullet {
                         this.el.remove();
 
                         //몬스터와 수리검이 충돌했다면 체력 업데이트
-                        allMonsterComProp.arr[j].updateHp();
+                        allMonsterComProp.arr[j].updateHp(j); //충돌한 몬스터의 인덱스 j를 넘김
                     }
                 }
             }
@@ -239,8 +239,32 @@ class Monster {
      * 몬스터의 체력을 깍고 업데이트를 하는 함수
      * 체력을 변경하는 메소드 이므로 몬스터와 수리검이 충돌할 때 호출
      */
-    updateHp() {
+    updateHp(index) {
         this.hpValue = Math.max(0, this.hpValue - hero.attackDamage); //몬스터 체력 - 히어로 공격력, 두개의 값중 큰 값이 나오게 해서 0로 안떨어지게 하자
         this.el.childNodes[0].innerText = this.hpValue;
+        console.log("인덱스->", index);
+
+        //몬스터의 체력이 0이 되었을 때 dead() 호출
+        if (this.hpValue === 0) {
+            this.dead(index);
+        }
+    }
+
+    /**
+     * 몬스터의 체력이 0이 되었을 때 몬스터를 사라지게 하는 함수
+     * 몬스터의 체력을 업데이트 하는 곳에서 호출
+     */
+    dead(index) {
+        console.log("뒤짐", index);
+        this.el.classList.add("remove"); //서서히 사라지게 클래스 추가
+
+        //몬스터가 remove 하면 바로 사라져서 "remove" 클래스를 먹지 않않는다 -> setTimeout을 사용해서 딜레이를 주자
+        setTimeout(() => this.el.remove(), 200);
+
+        console.log(allMonsterComProp.arr.length);
+        //화면에서 몬스터 엘리먼트를 사라지게 했지만, 아직 몬스터 인스턴스는 남아있음
+        //반복문을 돌면서 배열에서 제거해줘야한다.
+        //인덱스는 충돌시에 넘겨준다
+        allMonsterComProp.arr.splice(index, 1);
     }
 }

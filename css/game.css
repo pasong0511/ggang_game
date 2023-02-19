@@ -138,6 +138,11 @@
     will-change: transform;
 }
 
+.monster_box.remove {
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
 .monster_box .monster {
     height: 100%;
     background-image: url("../images/monster/monster_green_run.png");
