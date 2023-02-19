@@ -208,7 +208,10 @@ class Monster {
         this.progress = 0;
         this.hpInner = document.createElement("span"); //텍스트 노드 생성
 
-        this.positionX = positionX;
+        this.positionX = positionX; //몬스터 소환 위치
+
+        this.moveX = 0;
+        this.speed = 7;
 
         this.init();
     }
@@ -262,11 +265,40 @@ class Monster {
 
         //몬스터가 remove 하면 바로 사라져서 "remove" 클래스를 먹지 않않는다 -> setTimeout을 사용해서 딜레이를 주자
         setTimeout(() => this.el.remove(), 200);
-
-        console.log(allMonsterComProp.arr.length);
         //화면에서 몬스터 엘리먼트를 사라지게 했지만, 아직 몬스터 인스턴스는 남아있음
         //반복문을 돌면서 배열에서 제거해줘야한다.
         //인덱스는 충돌시에 넘겨준다
         allMonsterComProp.arr.splice(index, 1);
+    }
+
+    /**
+     * 몬스터를 이동시키는 메소드
+     * 수리검 이동 메소드와 비슷하게 몬스터 배열(allMonsterComProp.arr)의 길이만큼 반복문 돌면서 moveMonster 메소드를 실행시킨다.
+     * 몬스터의 속도와, 몬스터의 이동거리 필요
+     * <- 방향으로 움직이므로 speed 값을 빼줌
+     * //수식은 강의 참고 ㅋㅋㅋ
+     */
+    moveMonster() {
+        //현재위치 + 몬스터 소환위치 + 몬스터의 너비 -> 맨 왼쪽으로 가면 0 나옴
+        //즉 몬스터가 화면 왼쪽을 넘어갔다면
+        //히어로가 움직인 위치만큼 이동해서 몬스터 위치 잡고 다시 생성
+        if (
+            this.moveX +
+                this.positionX +
+                this.el.offsetWidth +
+                hero.position().left -
+                hero.moveX <=
+            0
+        ) {
+            this.moveX =
+                hero.moveX -
+                this.positionX +
+                gameProp.screenWidth -
+                hero.position().left;
+        } else {
+            this.moveX -= this.speed; //계속 왼쪽으로 이동
+        }
+
+        this.el.style.transform = `translateX(${this.moveX}px)`;
     }
 }

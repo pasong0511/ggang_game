@@ -62,12 +62,20 @@ const setGameBackground = () => {
  *  */
 const renderGame = () => {
     hero.keyMotion(); //키가 눌렸을 때 발생하는 이벤트는 renderGame함수에서 계속 호출
+
     setGameBackground(); //배경을 이동시켜주는 함수 계속 호출
+
     //다수의 수리검을 관리하기 위해서 수리검 개수만큼 반복
     bulletComProp.arr.forEach((arr, i) => {
         arr.moveBullent();
     });
 
+    //몬스터의 길이만큼 moveMonster() 호출
+    allMonsterComProp.arr.forEach((arr, i) => {
+        arr.moveMonster();
+    });
+
+    //renderGame() 재귀호출
     window.requestAnimationFrame(renderGame);
 };
 
@@ -122,8 +130,8 @@ let hero;
 const init = () => {
     hero = new Hero(".hero"); //클래스 이름 넘기기
     allMonsterComProp.arr[0] = new Monster(700, 7777); //몬스터 클래스 생성
-    allMonsterComProp.arr[1] = new Monster(1500, 10000); //몬스터 클래스 생성
-    allMonsterComProp.arr[2] = new Monster(2000, 12000); //몬스터 클래스 생성
+    // allMonsterComProp.arr[1] = new Monster(1500, 10000); //몬스터 클래스 생성
+    // allMonsterComProp.arr[2] = new Monster(2000, 12000); //몬스터 클래스 생성
 
     loadImg(); //css에서 사용하는 이미지를 미리 로드시키기 위한 함수
     windowEvent();
