@@ -130,8 +130,8 @@ let hero;
 const init = () => {
     hero = new Hero(".hero"); //클래스 이름 넘기기
     allMonsterComProp.arr[0] = new Monster(700, 7777); //몬스터 클래스 생성
-    // allMonsterComProp.arr[1] = new Monster(1500, 10000); //몬스터 클래스 생성
-    // allMonsterComProp.arr[2] = new Monster(2000, 12000); //몬스터 클래스 생성
+    allMonsterComProp.arr[1] = new Monster(1500, 10000); //몬스터 클래스 생성
+    allMonsterComProp.arr[2] = new Monster(2000, 12000); //몬스터 클래스 생성
 
     loadImg(); //css에서 사용하는 이미지를 미리 로드시키기 위한 함수
     windowEvent();

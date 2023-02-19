@@ -5,6 +5,9 @@ class Hero {
         this.speed = 11; //히어로의 스피드
         this.direction = "right"; //히어로가 바라보는 방향(기본은 right)
         this.attackDamage = 1000; //공격 대미지
+        this.hpProgress = 0;
+        this.hpValue = 10000; //히어로의 기본 체력
+        this.defaultHpValue = this.hpValue; //체력 퍼센트를 위해서 초기 hp 저정
     }
 
     /**
@@ -79,6 +82,17 @@ class Hero {
             width: this.el.offsetWidth,
             height: this.el.offsetHeight,
         };
+    }
+
+    /**
+     * 몬스터와 히어로가 충돌 했을 때 히어로의 체력을 깎아주는 메소드
+     */
+    updateHp(monsterDamage) {
+        this.hpValue = Math.max(0, this.hpValue - monsterDamage); //히어로의 체력에서 데미지 빼줌, 0보다 더 떨어지지 않기 위해서 max 처리
+        this.progress = (this.hpValue / this.defaultHpValue) * 100;
+
+        const heroHpBox = document.querySelector(".state_box .hp span"); //hp 게이지에 추가
+        heroHpBox.style.width = this.progress + "%"; //히어로 체력 퍼센트 대입
     }
 }
 
@@ -211,7 +225,9 @@ class Monster {
         this.positionX = positionX; //몬스터 소환 위치
 
         this.moveX = 0;
-        this.speed = 7;
+        this.speed = 10;
+
+        this.crashDamage = 100; //몬스터가 충돌했을 때 히어로가 hp 떨어지는 데미지 양
 
         this.init();
     }
@@ -300,5 +316,26 @@ class Monster {
         }
 
         this.el.style.transform = `translateX(${this.moveX}px)`;
+
+        this.clash(); //몬스터가 이동할 때마다 충돌 체크
+    }
+
+    /**
+     * 몬스터가 이동할 때마다 호출해서 충돌했는지 체크 하는 함수
+     * 히어로와 몬스터의 position 함수로 위치값을 가져와서 충돌 체크
+     */
+    clash() {
+        let rightDiff = 30; //박스 크기와 캐릭터의 여백 존재하여 여백 보정 -> 30px(여백) 만큼 느리게 충돌
+        let leftDiff = 90; //왼쪽 여백 보정
+        //1. 히어로의 오른쪽 위치와 몬스터의 왼쪽 위치를 비교 : 몬스터가 히어로를 지나갔다면
+        //2. 히어로의 왼쪽 값보다 몬스터의 오른쪽 값이 더 큰 경우  : 몬스터가 히어로를 지나가지 않았다면(지나가기 전)
+        if (
+            hero.position().right - rightDiff > this.position().left &&
+            hero.position().left + leftDiff < this.position().right
+        ) {
+            hero.updateHp(this.crashDamage); //충돌 대미지 넘겨줌
+        }
     }
 }
+
+//히어로의 hp,
