@@ -116,6 +116,7 @@ class Hero {
      */
     dead() {
         this.el.classList.add("dead");
+        endGame();
     }
 }
 

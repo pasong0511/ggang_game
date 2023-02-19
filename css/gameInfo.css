@@ -46,3 +46,29 @@
     background-color: red;
     transition: width 0.3s linear;
 }
+
+/*게임 오바 배경*/
+.game_over {
+    display: none;
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 200;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+.game_over.active {
+    display: block;
+}
+
+/*게임 오바 텍스트*/
+.game_over p {
+    display: flex;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 150px;
+}

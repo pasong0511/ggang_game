@@ -17,6 +17,7 @@ const allMonsterComProp = {
 const gameProp = {
     screenWidth: window.innerWidth, //화면 너비
     screenHeight: window.innerHeight, //화면 높이
+    gameOver: false,
 };
 
 //생성된 수리검을 관리할 배열을 만든다.
@@ -29,6 +30,17 @@ const gameBackground = {
     gameBox: document.querySelector(".game"), //패럴럭스 효과를 위해 game 엘리먼트 추가
     //게임 엘리먼트에 히어로가 이동한 값을 적용
     gameSky: document.querySelector(".sky"),
+};
+
+/**
+ * 게임이 종료되었을 때 실행하는 함수
+ * 히어로가 죽었을 때 호출 dead()
+ */
+const endGame = () => {
+    gameProp.gameOver = true; //게임 종료 플래그 설정
+    key.keyDown.left = false; //죽었을 때 강제로 키 멈춤
+    key.keyDown.right = false;
+    document.querySelector(".game_over").classList.add("active");
 };
 
 /**
@@ -82,7 +94,7 @@ const renderGame = () => {
 const windowEvent = () => {
     //키 누를 때 이벤트
     window.addEventListener("keydown", (event) => {
-        key.keyDown[key.keyValue[event.key]] = true;
+        if (!gameProp.gameOver) key.keyDown[key.keyValue[event.key]] = true;
     });
 
     //키 떼었을 때 발생하는 이벤트
