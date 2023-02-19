@@ -183,13 +183,20 @@ class Bullet {
 }
 
 class Monster {
-    constructor() {
+    constructor(positionX, hp) {
         this.parentNode = document.querySelector(".game"); //몬스터의 부모가 될 엘리먼트
         this.el = document.createElement("div");
         this.el.className = "monster_box";
 
         this.elChildren = document.createElement("div"); //몬스터 엘리먼트 생성
         this.elChildren.className = "monster";
+
+        this.hpNode = document.createElement("div");
+        this.hpNode.className = "hp";
+        this.hpValue = hp;
+        this.hpTextNode = document.createTextNode(this.hpValue); //텍스트 노드 생성
+
+        this.positionX = positionX;
 
         this.init();
     }
@@ -199,10 +206,13 @@ class Monster {
      * 몬스터를 화면(.game)에 추가
      */
     init() {
-        this.el.appendChild(this.elChildren);
+        this.hpNode.appendChild(this.hpTextNode);
+        this.el.appendChild(this.hpNode); //몬스터 박스에 추가
+        this.el.appendChild(this.elChildren); //몬스터 박스에 추가
         this.parentNode.appendChild(this.el);
-        console.log(this.elChildren);
-        console.log(this.parentNode);
+        this.el.style.left = this.positionX + "px";
+
+        console.log(this.el);
     }
 
     position() {

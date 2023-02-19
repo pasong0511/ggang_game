@@ -147,3 +147,14 @@
     */
     animation: monster_run 1s infinite steps(8); /*몬스터가 8컷이므로 8*/
 }
+
+.monster_box .hp {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    font-size: 110px;
+    color: #fff;
+    text-align: center;
+    transform: translateY(-100%);
+}
