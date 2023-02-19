@@ -77,12 +77,12 @@
 .hero_box .hero {
     height: 100%;
     background-image: url("../images/ninja_idle.png");
-    background-size: 1498px 182px; /*닌자 캐릭터 이미지 한 프레임의 크기*/
+    background-size: 1498px 182px; /*닌자 캐릭터 이미지 전체 프레임의 크기*/
 
     /*애니메이션 듀레이션 0.7초 동안, steps(10) 열번 움직여라, */
     /*열번 움직이는 기준은 0px 부터 -3770만큼 움직인 기준*/
     /*-3770 / 10 = -377px 이 원스텝이 되어 움직임 : 즉 0.7마다 -377px 만큼 움직인다.*/
-    animation: hero_idle 0.7s infinite steps(10); /*키프레임을 애니메이션에 추가한다*/
+    animation: hero_idle 0.7s infinite steps(10); /*키프레임을 애니메이션에 추가한다 히어로가 10컷*/
 }
 
 /* 오른쪽, 왼쪽 방향 전환을 위해서 flip 클래스에 방향 전환 */
@@ -117,4 +117,33 @@
     background-size: cover;
     background-repeat: no-repeat;
     will-change: transform; /*transform을 사용하는 css 속성에 값이 변경될 속성에 대한 힌트를 미리 지정*/
+}
+
+@keyframes monster_run {
+    from {
+        background-position-x: 0px; /*0픽셀부터 시작*/
+    }
+    to {
+        background-position-x: -2242px; /*<- 방향으로 이동(0부터 이미지 끝까지0*/
+    }
+}
+
+.monster_box {
+    position: absolute;
+    left: 700px;
+    bottom: 0px;
+    z-index: 90px;
+    width: 280px;
+    height: 294px;
+    will-change: transform;
+}
+
+.monster_box .monster {
+    height: 100%;
+    background-image: url("../images/monster/monster_green_run.png");
+    background-size: 2242px 294px;
+    /*전체 몬스터 이미지는 2242px 이었고, 이걸 8만큼 쪼개서 보여줌이라고 생각하자
+    * 이게 프레임 수가 안맞게 보이면 움직임이 이상하게 보인다.
+    */
+    animation: monster_run 1s infinite steps(8); /*몬스터가 8컷이므로 8*/
 }
