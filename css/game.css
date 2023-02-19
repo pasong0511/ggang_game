@@ -132,7 +132,7 @@
     position: absolute;
     left: 700px;
     bottom: 0px;
-    z-index: 90px;
+    z-index: 90;
     width: 280px;
     height: 294px;
     will-change: transform;

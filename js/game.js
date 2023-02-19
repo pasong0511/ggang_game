@@ -115,8 +115,10 @@ const loadImg = () => {
 };
 
 let hero;
+let monster;
 const init = () => {
     hero = new Hero(".hero"); //클래스 이름 넘기기
+    monster = new Monster(); //몬스터 클래스 생성
     loadImg(); //css에서 사용하는 이미지를 미리 로드시키기 위한 함수
     windowEvent();
     renderGame(); //키가 눌렸을 떄 키 딜레이를 줄야서 캐릭터가 자연스럽게 움직 일 수 있게 하는 함수

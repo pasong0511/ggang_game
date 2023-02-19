@@ -158,3 +158,27 @@ class Bullet {
         }
     }
 }
+
+class Monster {
+    constructor() {
+        this.parentNode = document.querySelector(".game"); //몬스터의 부모가 될 엘리먼트
+        this.el = document.createElement("div");
+        this.el.className = "monster_box";
+
+        this.elChildren = document.createElement("div"); //몬스터 엘리먼트 생성
+        this.elChildren.className = "monster";
+
+        this.init();
+    }
+
+    /**
+     * 몬스터를 몬스터 박스에 추가
+     * 몬스터를 화면(.game)에 추가
+     */
+    init() {
+        this.el.appendChild(this.elChildren);
+        this.parentNode.appendChild(this.el);
+        console.log(this.elChildren);
+        console.log(this.parentNode);
+    }
+}
