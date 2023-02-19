@@ -149,22 +149,28 @@ class Bullet {
      * 수리검이 이동할 때마다 호출되어 화면을 벗어났는지, 충돌을 체크했는지 체크
      */
     crashBullet() {
-        //수리검의 왼쪽 위치보다 몬스터의 왼쪽 위치보다 큰 경우 수리검 제거 &&
-        //수리검의 오른쪽 위치보다 몬스터의 오른쪽 위치보다 큰 경우 수리검 제거
-        if (
-            this.position().left > monster.position().left &&
-            this.position().right < monster.position().right
-        ) {
-            //수리검 배열만큼 돌면서 현재 충돌한 수리검 찾기
-            for (let i = 0; i < bulletComProp.arr.length; i++) {
-                //현재 충돌한 수리검을 찾는 조건문
-                //i번째 인스턴스가 햔재의 수리검 인스턴스와 같다면 : 현재 충돌한 수리검 찾기
-                if (bulletComProp.arr[i] === this) {
-                    bulletComProp.arr.splice(i, 1);
-                    this.el.remove();
+        for (let j = 0; j < allMonsterComProp.arr.length; j++) {
+            //수리검의 왼쪽 위치보다 몬스터의 왼쪽 위치보다 큰 경우 수리검 제거 &&
+            //수리검의 오른쪽 위치보다 몬스터의 오른쪽 위치보다 큰 경우 수리검 제거
+            if (
+                this.position().left >
+                    allMonsterComProp.arr[j].position().left &&
+                this.position().right <
+                    allMonsterComProp.arr[j].position().right
+            ) {
+                //몬스터 길이만큼 배열 돌면서, 공격한 몬스터 찾기
 
-                    //몬스터와 수리검이 충돌했다면 체력 업데이트
-                    monster.updateHp();
+                //수리검 배열만큼 돌면서 현재 충돌한 수리검 찾기
+                for (let i = 0; i < bulletComProp.arr.length; i++) {
+                    //현재 충돌한 수리검을 찾는 조건문
+                    //i번째 인스턴스가 햔재의 수리검 인스턴스와 같다면 : 현재 충돌한 수리검 찾기
+                    if (bulletComProp.arr[i] === this) {
+                        bulletComProp.arr.splice(i, 1);
+                        this.el.remove();
+
+                        //몬스터와 수리검이 충돌했다면 체력 업데이트
+                        allMonsterComProp.arr[j].updateHp();
+                    }
                 }
             }
         }

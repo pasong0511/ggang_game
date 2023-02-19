@@ -9,6 +9,10 @@ const key = {
     },
 };
 
+const allMonsterComProp = {
+    arr: [],
+};
+
 //화면 너비, 높이가 변경되었을 때 공통으로 사용할 값
 const gameProp = {
     screenWidth: window.innerWidth, //화면 너비
@@ -115,10 +119,12 @@ const loadImg = () => {
 };
 
 let hero;
-let monster;
 const init = () => {
     hero = new Hero(".hero"); //클래스 이름 넘기기
-    monster = new Monster(500, 9000); //몬스터 클래스 생성
+    allMonsterComProp.arr[0] = new Monster(700, 7777); //몬스터 클래스 생성
+    allMonsterComProp.arr[1] = new Monster(1500, 10000); //몬스터 클래스 생성
+    allMonsterComProp.arr[2] = new Monster(2000, 12000); //몬스터 클래스 생성
+
     loadImg(); //css에서 사용하는 이미지를 미리 로드시키기 위한 함수
     windowEvent();
     renderGame(); //키가 눌렸을 떄 키 딜레이를 줄야서 캐릭터가 자연스럽게 움직 일 수 있게 하는 함수
