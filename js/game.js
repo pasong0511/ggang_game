@@ -141,15 +141,44 @@ const loadImg = () => {
 let hero;
 const init = () => {
     hero = new Hero(".hero"); //클래스 이름 넘기기
-    allMonsterComProp.arr[0] = new Monster(pinkMon, gameProp.screenWidth + 700); //몬스터 이름, 화면 넓이 + 생성하고 싶은 위치
-    allMonsterComProp.arr[1] = new Monster(
-        yellowMon,
-        gameProp.screenWidth + 1400
-    ); //몬스터 이름, 화면 넓이 + 생성하고 싶은 위치
-    allMonsterComProp.arr[2] = new Monster(
-        greenMon,
-        gameProp.screenWidth + 2100
-    ); //몬스터 이름, 화면 넓이 + 생성하고 싶은 위치
+    // allMonsterComProp.arr[0] = new Monster(pinkMon, gameProp.screenWidth + 700); //몬스터 이름, 화면 넓이 + 생성하고 싶은 위치
+    // allMonsterComProp.arr[1] = new Monster(
+    //     yellowMon,
+    //     gameProp.screenWidth + 1400
+    // ); //몬스터 이름, 화면 넓이 + 생성하고 싶은 위치
+    // allMonsterComProp.arr[2] = new Monster(
+    //     greenMon,
+    //     gameProp.screenWidth + 2100
+    // ); //몬스터 이름, 화면 넓이 + 생성하고 싶은 위치
+    // allMonsterComProp.arr[3] = new Monster(
+    //     greenMonBoss,
+    //     gameProp.screenWidth + 2100
+    // ); //몬스터 이름, 화면 넓이 + 생성하고 싶은 위치
+
+    // allMonsterComProp.arr[4] = new Monster(
+    //     yellowMonBoss,
+    //     gameProp.screenWidth + 3100
+    // ); //몬스터 이름, 화면 넓이 + 생성하고 싶은 위치
+
+    // allMonsterComProp.arr[5] = new Monster(
+    //     pinkMonBoss,
+    //     gameProp.screenWidth + 4100
+    // ); //몬스터 이름, 화면 넓이 + 생성하고 싶은 위치
+
+    for (let i = 0; i <= 10; i++) {
+        //보스 몬스터가 나올 수 있는 조건
+        if (i === 10) {
+            allMonsterComProp.arr[i] = new Monster(
+                greenMonBoss,
+                gameProp.screenWidth + 700 * i
+            );
+        } else {
+            allMonsterComProp.arr[i] = new Monster(
+                greenMon,
+                gameProp.screenWidth + 700 * i
+            );
+        }
+    }
 
     loadImg(); //css에서 사용하는 이미지를 미리 로드시키기 위한 함수
     windowEvent();

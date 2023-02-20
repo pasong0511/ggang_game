@@ -202,6 +202,48 @@
     background-image: url("../images/monster/monster_pink_run.png");
 }
 
+@keyframes monster_run_boss {
+    from {
+        background-position-x: 0px; /*0픽셀부터 시작*/
+    }
+    to {
+        background-position-x: -3600px; /*<- 방향으로 이동(0부터 이미지 끝까지0*/
+    }
+}
+
+.monster_box.green_mon_boss {
+    width: 450px;
+    height: 472px;
+}
+
+.monster_box.green_mon_boss .monster {
+    background-image: url("../images/monster/monster_green_run.png");
+    background-size: 3600px 472px;
+    animation: monster_run_boss 1s infinite steps(8);
+}
+
+.monster_box.yellow_mon_boss {
+    width: 450px;
+    height: 472px;
+}
+
+.monster_box.yellow_mon_boss .monster {
+    background-image: url("../images/monster/monster_yellow_run.png");
+    background-size: 3600px 472px;
+    animation: monster_run_boss 1s infinite steps(8);
+}
+
+.monster_box.pink_mon_boss {
+    width: 450px;
+    height: 472px;
+}
+
+.monster_box.pink_mon_boss .monster {
+    background-image: url("../images/monster/monster_pink_run.png");
+    background-size: 3600px 472px;
+    animation: monster_run_boss 1s infinite steps(8);
+}
+
 .text_damage {
     position: absolute;
     left: 0;

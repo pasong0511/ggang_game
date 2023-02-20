@@ -6,7 +6,7 @@ class Hero {
         this.direction = "right"; //히어로가 바라보는 방향(기본은 right)
         this.attackDamage = 1000; //공격 대미지
         this.hpProgress = 0;
-        this.hpValue = 10000; //히어로의 기본 체력
+        this.hpValue = 1000000; //히어로의 기본 체력
         this.defaultHpValue = this.hpValue; //체력 퍼센트를 위해서 초기 hp 저정
         this.realDamage = 0; //실재 공격 데미지
     }
