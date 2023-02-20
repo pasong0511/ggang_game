@@ -1,3 +1,58 @@
+class Stage {
+    constructor() {
+        this.stageStart();
+    }
+
+    /**
+     * 스테이지 시작 메소드
+     * 인스턴스를 생성할 때 함께 생성한다.
+     */
+    stageStart() {
+        this.stageGuide(); //스테이지 시작
+        this.callMonster(); //몬스터 소환
+    }
+
+    /**
+     * 스테이지 시작을 알리는 텍스트를 화면에 보여주는 메소드
+     * stageStart() 에서 호출
+     */
+    stageGuide() {
+        this.parentNode = document.querySelector(".game_app");
+
+        this.textBox = document.createElement("div");
+        this.textBox.className = "stage_box";
+        this.txtNode = document.createTextNode("START LEBEL1");
+
+        this.textBox.appendChild(this.txtNode);
+        this.parentNode.appendChild(this.textBox);
+
+        setTimeout(() => {
+            this.textBox.remove();
+        }, 1500);
+    }
+
+    /**
+     * 몬스터 생성 함수
+     * 스테이지가 시작할 때 실행
+     */
+    callMonster() {
+        for (let i = 0; i <= 10; i++) {
+            //보스 몬스터가 나올 수 있는 조건
+            if (i === 10) {
+                allMonsterComProp.arr[i] = new Monster(
+                    greenMonBoss,
+                    gameProp.screenWidth + 700 * i
+                );
+            } else {
+                allMonsterComProp.arr[i] = new Monster(
+                    greenMon,
+                    gameProp.screenWidth + 700 * i
+                );
+            }
+        }
+    }
+}
+
 class Hero {
     constructor(el) {
         this.el = document.querySelector(el);

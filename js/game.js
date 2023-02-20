@@ -32,6 +32,11 @@ const gameBackground = {
     gameSky: document.querySelector(".sky"),
 };
 
+//스테이지를 관리할 값
+const stageInfo = {
+    stage: [],
+};
+
 /**
  * 게임이 종료되었을 때 실행하는 함수
  * 히어로가 죽었을 때 호출 dead()
@@ -141,6 +146,10 @@ const loadImg = () => {
 let hero;
 const init = () => {
     hero = new Hero(".hero"); //클래스 이름 넘기기
+
+    //스테이지 시작 클래스 생성
+    stageInfo.stage = new Stage();
+
     // allMonsterComProp.arr[0] = new Monster(pinkMon, gameProp.screenWidth + 700); //몬스터 이름, 화면 넓이 + 생성하고 싶은 위치
     // allMonsterComProp.arr[1] = new Monster(
     //     yellowMon,
