@@ -141,9 +141,15 @@ const loadImg = () => {
 let hero;
 const init = () => {
     hero = new Hero(".hero"); //클래스 이름 넘기기
-    allMonsterComProp.arr[0] = new Monster(700, 7777); //몬스터 클래스 생성
-    allMonsterComProp.arr[1] = new Monster(1500, 10000); //몬스터 클래스 생성
-    allMonsterComProp.arr[2] = new Monster(2000, 12000); //몬스터 클래스 생성
+    allMonsterComProp.arr[0] = new Monster(pinkMon, gameProp.screenWidth + 700); //몬스터 이름, 화면 넓이 + 생성하고 싶은 위치
+    allMonsterComProp.arr[1] = new Monster(
+        yellowMon,
+        gameProp.screenWidth + 1400
+    ); //몬스터 이름, 화면 넓이 + 생성하고 싶은 위치
+    allMonsterComProp.arr[2] = new Monster(
+        greenMon,
+        gameProp.screenWidth + 2100
+    ); //몬스터 이름, 화면 넓이 + 생성하고 싶은 위치
 
     loadImg(); //css에서 사용하는 이미지를 미리 로드시키기 위한 함수
     windowEvent();

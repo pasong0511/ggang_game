@@ -277,27 +277,27 @@ class Bullet {
 }
 
 class Monster {
-    constructor(positionX, hp) {
+    constructor(property, positionX) {
         this.parentNode = document.querySelector(".game"); //몬스터의 부모가 될 엘리먼트
         this.el = document.createElement("div");
-        this.el.className = "monster_box";
+        this.el.className = `monster_box ${property.name}`;
 
         this.elChildren = document.createElement("div"); //몬스터 엘리먼트 생성
         this.elChildren.className = "monster";
 
         this.hpNode = document.createElement("div");
         this.hpNode.className = "hp";
-        this.hpValue = hp;
-        this.defaultHpValue = hp;
+        this.hpValue = property.hpValue;
+        this.defaultHpValue = property.hpValue;
         this.progress = 0;
         this.hpInner = document.createElement("span"); //텍스트 노드 생성
 
         this.positionX = positionX; //몬스터 소환 위치
 
         this.moveX = 0;
-        this.speed = 10;
+        this.speed = property.speed;
 
-        this.crashDamage = 100; //몬스터가 충돌했을 때 히어로가 hp 떨어지는 데미지 양
+        this.crashDamage = property.crashDamage; //몬스터가 충돌했을 때 히어로가 hp 떨어지는 데미지 양
 
         this.init();
     }

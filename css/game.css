@@ -194,6 +194,14 @@
     transition: width 0.3s linear; /*몬스터 피 깎임 부드럽게 처리*/
 }
 
+.monster_box.yellow_mon .monster {
+    background-image: url("../images/monster/monster_yellow_run.png");
+}
+
+.monster_box.pink_mon .monster {
+    background-image: url("../images/monster/monster_pink_run.png");
+}
+
 .text_damage {
     position: absolute;
     left: 0;
