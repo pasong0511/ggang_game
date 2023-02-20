@@ -206,6 +206,10 @@ class Bullet {
                         bulletComProp.arr.splice(i, 1);
                         this.el.remove();
 
+                        //수리검과 몬스터가 충돌했다 : 데미지 깎임
+                        //damageView()가 updateHp() 보다 먼저 호출해야한다.
+                        this.damageView(allMonsterComProp.arr[j]); //수리검과 몬스터의 충돌 x, y 좌표 넘기기 위해 충돌한 몬스터 인스턴스 넘김
+
                         //몬스터와 수리검이 충돌했다면 체력 업데이트
                         allMonsterComProp.arr[j].updateHp(j); //충돌한 몬스터의 인덱스 j를 넘김
                     }
@@ -227,6 +231,33 @@ class Bullet {
                 }
             }
         }
+    }
+
+    /**
+     * 수리검에 맞은 몬스터 데미지를 화면에 보여주는 함수
+     * 수리검과 몬스터가 충돌했을 때 호출
+     */
+    damageView(monster) {
+        this.parentNode = document.querySelector(".game_app"); //game_app을 부모로 : 화면을 기준으로 화면 크기를 기준으로  데미지 위치 지정
+
+        this.textDamageNode = document.createElement("div");
+        this.textDamageNode.className = "text_damage";
+
+        this.textDamage = document.createTextNode(hero.attackDamage);
+
+        this.textDamageNode.appendChild(this.textDamage);
+        this.parentNode.appendChild(this.textDamageNode);
+
+        let textPosition = Math.random() * -100; //살짝 왼쪽에서 랜덤하게 보이게 하기
+        let damageX = monster.position().left + textPosition; //수리검과 몬스터가 충돌한 x 좌표
+        let damageY = monster.position().top; //수리검과 몬스터가 충돌한 y 좌표
+
+        this.textDamageNode.style.transform = `translate(${damageX}px, ${-damageY}px)`;
+
+        //일정 시간 지나면 대미지 제거
+        setTimeout(() => {
+            this.textDamageNode.remove();
+        }, 500);
     }
 }
 
