@@ -8,6 +8,7 @@ class Hero {
         this.hpProgress = 0;
         this.hpValue = 10000; //히어로의 기본 체력
         this.defaultHpValue = this.hpValue; //체력 퍼센트를 위해서 초기 hp 저정
+        this.realDamage = 0; //실재 공격 데미지
     }
 
     /**
@@ -118,6 +119,17 @@ class Hero {
         this.el.classList.add("dead");
         endGame();
     }
+
+    /**
+     * 공격 데미지 확률 조정
+     * 수리검과 몬스터가 충돌 했을 때 값을 조정
+     * 몬스터가 수리검과 충돌 했을 때마다 호출
+     */
+    hitDamage() {
+        this.realDamage =
+            this.attackDamage -
+            Math.round(Math.random() * this.attackDamage * 0.1); //총 공격력에서 10% 뺀다.
+    }
 }
 
 class Bullet {
@@ -203,6 +215,9 @@ class Bullet {
                     //현재 충돌한 수리검을 찾는 조건문
                     //i번째 인스턴스가 햔재의 수리검 인스턴스와 같다면 : 현재 충돌한 수리검 찾기
                     if (bulletComProp.arr[i] === this) {
+                        //대미지 랜덤값
+                        hero.hitDamage();
+
                         bulletComProp.arr.splice(i, 1);
                         this.el.remove();
 
@@ -243,7 +258,7 @@ class Bullet {
         this.textDamageNode = document.createElement("div");
         this.textDamageNode.className = "text_damage";
 
-        this.textDamage = document.createTextNode(hero.attackDamage);
+        this.textDamage = document.createTextNode(hero.realDamage);
 
         this.textDamageNode.appendChild(this.textDamage);
         this.parentNode.appendChild(this.textDamageNode);
@@ -316,7 +331,7 @@ class Monster {
      * 체력을 변경하는 메소드 이므로 몬스터와 수리검이 충돌할 때 호출
      */
     updateHp(index) {
-        this.hpValue = Math.max(0, this.hpValue - hero.attackDamage); //몬스터 체력 - 히어로 공격력, 두개의 값중 큰 값이 나오게 해서 0로 안떨어지게 하자
+        this.hpValue = Math.max(0, this.hpValue - hero.realDamage); //몬스터 체력 - 히어로 공격력, 두개의 값중 큰 값이 나오게 해서 0로 안떨어지게 하자
         this.progress = (this.hpValue / this.defaultHpValue) * 100; //프로그래스 퍼센트 구하기 현재 hp / 초기 hp * 100
 
         this.el.children[0].children[0].style.width = this.progress + "%"; // 프로그래스 바에 퍼센트 대입
