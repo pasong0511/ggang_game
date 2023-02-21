@@ -1,5 +1,6 @@
 class Stage {
     constructor() {
+        this.isStart = false; //스테이지를 시작하는 플래그
         this.stageStart();
     }
 
@@ -8,7 +9,8 @@ class Stage {
      * 인스턴스를 생성할 때 함께 생성한다.
      */
     stageStart() {
-        this.stageGuide(); //스테이지 시작
+        this.isStart = true; //시작 플래그 stage 시작하면 true로 변경
+        this.stageGuide("START LEVEL 1"); //스테이지 시작
         this.callMonster(); //몬스터 소환
     }
 
@@ -16,12 +18,12 @@ class Stage {
      * 스테이지 시작을 알리는 텍스트를 화면에 보여주는 메소드
      * stageStart() 에서 호출
      */
-    stageGuide() {
+    stageGuide(text) {
         this.parentNode = document.querySelector(".game_app");
 
         this.textBox = document.createElement("div");
         this.textBox.className = "stage_box";
-        this.txtNode = document.createTextNode("START LEBEL1");
+        this.txtNode = document.createTextNode(text);
 
         this.textBox.appendChild(this.txtNode);
         this.parentNode.appendChild(this.textBox);
@@ -51,6 +53,20 @@ class Stage {
             }
         }
     }
+
+    /**
+     * 모든 몬스터를 사냥했는 지 체크하는 함수
+     * renderGame() 에서 계속 호출하면서 다 잡았는지 체크
+     * allMonsterComprop.arr.length 길이가 0인 경우 -> 모든 몬스터를 사냥 완료
+     */
+    clearCheck() {
+        //몬스터 다 잡고, this.isStart가 true 경우
+        if (allMonsterComProp.arr.length === 0 && this.isStart) {
+            console.log("몬스터 올킬");
+            this.isStart = false;
+            this.stageGuide("CLEAR STAGE"); //스테이지 시작
+        }
+    }
 }
 
 class Hero {
@@ -59,9 +75,9 @@ class Hero {
         this.moveX = 0; //히어로가 이동할 거리
         this.speed = 11; //히어로의 스피드
         this.direction = "right"; //히어로가 바라보는 방향(기본은 right)
-        this.attackDamage = 1000; //공격 대미지
+        this.attackDamage = 500000; //공격 대미지
         this.hpProgress = 0;
-        this.hpValue = 1000000; //히어로의 기본 체력
+        this.hpValue = 5000000; //히어로의 기본 체력
         this.defaultHpValue = this.hpValue; //체력 퍼센트를 위해서 초기 hp 저정
         this.realDamage = 0; //실재 공격 데미지
     }
