@@ -1,5 +1,6 @@
 class Stage {
     constructor() {
+        this.level = 0;
         this.isStart = false; //스테이지를 시작하는 플래그
         this.stageStart();
     }
@@ -9,9 +10,11 @@ class Stage {
      * 인스턴스를 생성할 때 함께 생성한다.
      */
     stageStart() {
-        this.isStart = true; //시작 플래그 stage 시작하면 true로 변경
-        this.stageGuide("START LEVEL 1"); //스테이지 시작
-        this.callMonster(); //몬스터 소환
+        setTimeout(() => {
+            this.isStart = true; //시작 플래그 stage 시작하면 true로 변경
+            this.stageGuide(`START LEVEL ${this.level + 1}`); //스테이지 시작
+            this.callMonster(); //몬스터 소환
+        }, 2000);
     }
 
     /**
@@ -63,6 +66,7 @@ class Stage {
     clearCheck() {
         //몬스터 다 잡고, this.isStart가 true 경우
         if (allMonsterComProp.arr.length === 0 && this.isStart) {
+            this.level++; //모든 몬스더 다 잡은 경우 레벨업
             this.isStart = false;
             this.stageGuide("CLEAR STAGE"); //스테이지 시작
             this.stageStart(); //모든 몬스터를 잡았을 경우 새로운 스테이지 시작
