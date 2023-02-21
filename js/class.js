@@ -36,6 +36,7 @@ class Stage {
     /**
      * 몬스터 생성 함수
      * 스테이지가 시작할 때 실행
+     * 몬스터의 생성 위치는 히어로의 이동거리 + 스크린의 너비 + 700 + 인덱스
      */
     callMonster() {
         for (let i = 0; i <= 10; i++) {
@@ -43,12 +44,12 @@ class Stage {
             if (i === 10) {
                 allMonsterComProp.arr[i] = new Monster(
                     greenMonBoss,
-                    gameProp.screenWidth + 700 * i
+                    hero.moveX + gameProp.screenWidth + 600 * i
                 );
             } else {
                 allMonsterComProp.arr[i] = new Monster(
                     greenMon,
-                    gameProp.screenWidth + 700 * i
+                    hero.moveX + gameProp.screenWidth + 700 * i
                 );
             }
         }
@@ -62,9 +63,9 @@ class Stage {
     clearCheck() {
         //몬스터 다 잡고, this.isStart가 true 경우
         if (allMonsterComProp.arr.length === 0 && this.isStart) {
-            console.log("몬스터 올킬");
             this.isStart = false;
             this.stageGuide("CLEAR STAGE"); //스테이지 시작
+            this.stageStart(); //모든 몬스터를 잡았을 경우 새로운 스테이지 시작
         }
     }
 }
@@ -72,7 +73,7 @@ class Stage {
 class Hero {
     constructor(el) {
         this.el = document.querySelector(el);
-        this.moveX = 0; //히어로가 이동할 거리
+        this.moveX = 0; //히어로가 이동한 거리
         this.speed = 11; //히어로의 스피드
         this.direction = "right"; //히어로가 바라보는 방향(기본은 right)
         this.attackDamage = 500000; //공격 대미지
