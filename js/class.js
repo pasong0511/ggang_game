@@ -46,12 +46,12 @@ class Stage {
             //보스 몬스터가 나올 수 있는 조건
             if (i === 10) {
                 allMonsterComProp.arr[i] = new Monster(
-                    greenMonBoss,
+                    stageInfo.monster[this.level].defaultMon, //스테이지 레벨에 맞게 몬스터 정보 생성
                     hero.moveX + gameProp.screenWidth + 600 * i
                 );
             } else {
                 allMonsterComProp.arr[i] = new Monster(
-                    greenMon,
+                    stageInfo.monster[this.level].defaultMon,
                     hero.moveX + gameProp.screenWidth + 700 * i
                 );
             }
@@ -68,8 +68,12 @@ class Stage {
         if (allMonsterComProp.arr.length === 0 && this.isStart) {
             this.level++; //모든 몬스더 다 잡은 경우 레벨업
             this.isStart = false;
-            this.stageGuide("CLEAR STAGE"); //스테이지 시작
-            this.stageStart(); //모든 몬스터를 잡았을 경우 새로운 스테이지 시작
+
+            //몬스터 배열의 길이보다 작을 경우에만 다음 스테이지 진행
+            if (this.level < stageInfo.monster.length) {
+                this.stageGuide("CLEAR STAGE"); //스테이지 시작
+                this.stageStart(); //모든 몬스터를 잡았을 경우 새로운 스테이지 시작
+            }
         }
     }
 }

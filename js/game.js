@@ -35,6 +35,11 @@ const gameBackground = {
 //스테이지를 관리할 값
 const stageInfo = {
     stage: [],
+    monster: [
+        { defaultMon: greenMon, bossMon: greenMonBoss },
+        { defaultMon: yellowMon, bossMon: yellowMonBoss },
+        { defaultMon: pinkMon, bossMon: pinkMonBoss },
+    ],
 };
 
 /**
