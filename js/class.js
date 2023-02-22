@@ -73,6 +73,7 @@ class Stage {
             if (this.level < stageInfo.monster.length) {
                 this.stageGuide("CLEAR STAGE"); //스테이지 시작
                 this.stageStart(); //모든 몬스터를 잡았을 경우 새로운 스테이지 시작
+                hero.heroUpgrade(); //히어로 스탯 업그레이드
             }
             //모든 스테이지를 클리어 했다면
             else {
@@ -88,7 +89,7 @@ class Hero {
         this.moveX = 0; //히어로가 이동한 거리
         this.speed = 11; //히어로의 스피드
         this.direction = "right"; //히어로가 바라보는 방향(기본은 right)
-        this.attackDamage = 500000; //공격 대미지
+        this.attackDamage = 20000; //공격 대미지
         this.hpProgress = 0;
         this.hpValue = 5000000; //히어로의 기본 체력
         this.defaultHpValue = this.hpValue; //체력 퍼센트를 위해서 초기 hp 저정
@@ -213,6 +214,16 @@ class Hero {
         this.realDamage =
             this.attackDamage -
             Math.round(Math.random() * this.attackDamage * 0.1); //총 공격력에서 10% 뺀다.
+    }
+
+    /**
+     * 스테이지를 클리어하면 히어로의 스탯 상승
+     * 스테이지 클리어 하면 호출
+     */
+    heroUpgrade() {
+        console.log("히어로 스탯 업글");
+        this.speed += 1.3;
+        this.attackDamage += 15000;
     }
 }
 
