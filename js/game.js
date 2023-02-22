@@ -40,6 +40,7 @@ const stageInfo = {
         { defaultMon: yellowMon, bossMon: yellowMonBoss },
         { defaultMon: pinkMon, bossMon: pinkMonBoss },
     ],
+    totalScore: 0,
 };
 
 /**

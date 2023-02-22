@@ -42,11 +42,11 @@ class Stage {
      * 몬스터의 생성 위치는 히어로의 이동거리 + 스크린의 너비 + 700 + 인덱스
      */
     callMonster() {
-        for (let i = 0; i <= 2; i++) {
+        for (let i = 0; i <= 10; i++) {
             //보스 몬스터가 나올 수 있는 조건
             if (i === 10) {
                 allMonsterComProp.arr[i] = new Monster(
-                    stageInfo.monster[this.level].defaultMon, //스테이지 레벨에 맞게 몬스터 정보 생성
+                    stageInfo.monster[this.level].bossMon, //스테이지 레벨에 맞게 몬스터 정보 생성
                     hero.moveX + gameProp.screenWidth + 600 * i
                 );
             } else {
@@ -387,6 +387,8 @@ class Monster {
         this.progress = 0;
         this.hpInner = document.createElement("span"); //텍스트 노드 생성
 
+        this.score = property.score; //각 몬스터의 경험치
+
         this.positionX = positionX; //몬스터 소환 위치
 
         this.moveX = 0;
@@ -450,6 +452,7 @@ class Monster {
         //반복문을 돌면서 배열에서 제거해줘야한다.
         //인덱스는 충돌시에 넘겨준다
         allMonsterComProp.arr.splice(index, 1);
+        this.setScore();
     }
 
     /**
@@ -500,6 +503,16 @@ class Monster {
         ) {
             hero.updateHp(this.crashDamage); //충돌 대미지 넘겨줌
         }
+    }
+
+    /**
+     * 몬스터가 죽었을 때 socre를 totalScore에 누적
+     * 몬스터가 죽을 때 호출
+     */
+    setScore() {
+        stageInfo.totalScore += this.score;
+        console.log(stageInfo.totalScore);
+        document.querySelector(".score_box").innerText = stageInfo.totalScore; //스코어 화면에 반영
     }
 }
 
