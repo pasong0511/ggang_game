@@ -89,9 +89,9 @@ class Hero {
         this.moveX = 0; //히어로가 이동한 거리
         this.speed = 11; //히어로의 스피드
         this.direction = "right"; //히어로가 바라보는 방향(기본은 right)
-        this.attackDamage = 20000; //공격 대미지
+        this.attackDamage = 10000; //공격 대미지
         this.hpProgress = 0;
-        this.hpValue = 5000000; //히어로의 기본 체력
+        this.hpValue = 100000; //히어로의 기본 체력
         this.defaultHpValue = this.hpValue; //체력 퍼센트를 위해서 초기 hp 저정
         this.realDamage = 0; //실재 공격 데미지
     }
