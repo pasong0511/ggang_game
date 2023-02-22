@@ -42,7 +42,7 @@ class Stage {
      * 몬스터의 생성 위치는 히어로의 이동거리 + 스크린의 너비 + 700 + 인덱스
      */
     callMonster() {
-        for (let i = 0; i <= 10; i++) {
+        for (let i = 0; i <= 2; i++) {
             //보스 몬스터가 나올 수 있는 조건
             if (i === 10) {
                 allMonsterComProp.arr[i] = new Monster(
@@ -73,6 +73,10 @@ class Stage {
             if (this.level < stageInfo.monster.length) {
                 this.stageGuide("CLEAR STAGE"); //스테이지 시작
                 this.stageStart(); //모든 몬스터를 잡았을 경우 새로운 스테이지 시작
+            }
+            //모든 스테이지를 클리어 했다면
+            else {
+                this.stageGuide("ALL CLEAR!");
             }
         }
     }
