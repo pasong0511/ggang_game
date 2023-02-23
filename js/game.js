@@ -6,6 +6,7 @@ const key = {
         ArrowRight: "right",
         ArrowUp: "up",
         x: "attack",
+        c: "slide",
     },
 };
 
@@ -35,12 +36,12 @@ const gameBackground = {
 //스테이지를 관리할 값
 const stageInfo = {
     stage: [],
+    totalScore: 0,
     monster: [
         { defaultMon: greenMon, bossMon: greenMonBoss },
         { defaultMon: yellowMon, bossMon: yellowMonBoss },
         { defaultMon: pinkMon, bossMon: pinkMonBoss },
     ],
-    totalScore: 0,
 };
 
 /**

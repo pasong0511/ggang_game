@@ -94,6 +94,10 @@ class Hero {
         this.hpValue = 100000; //히어로의 기본 체력
         this.defaultHpValue = this.hpValue; //체력 퍼센트를 위해서 초기 hp 저정
         this.realDamage = 0; //실재 공격 데미지
+        this.slideSpeed = 14; //슬라이드 스피드
+        this.splideTime = 0; //슬라이드가 진행된 시간
+        this.slideMaxTime = 30; //슬라이드 time이 30보다 크면 슬라이드 취소
+        this.slideDown = false;
     }
 
     /**
@@ -128,6 +132,29 @@ class Hero {
             }
         }
 
+        if (key.keyDown["slide"]) {
+            //슬라이드 다운이 false인 경우에만
+            if (!this.slideDown) {
+                this.el.classList.add("slide");
+                //히어로가 바라보고 있는 방향이 오른쪽이라면, 슬라이드 방향도 오른쪽을 바라보며 이동
+                //히어로 방향 + 슬라이드 스피드
+                if (this.direction === "right") {
+                    this.moveX = this.moveX + this.slideSpeed; //->오른쪽으로 이동
+                }
+                //히어로가 바라보는 방향이 왼쪽이라면
+                else {
+                    this.moveX = this.moveX - this.slideSpeed; //왼쪽으로 이동->
+                }
+
+                //슬라이드 맥스타임보다 슬라이드 지속 타임이 큰 경우 슬라이드 취소
+                if (this.slideTime > this.slideMaxTime) {
+                    this.el.classList.remove("slide");
+                    this.slideDown = true;
+                }
+                this.slideTime += 1; //슬라이드 시간 증가
+            }
+        }
+
         //사용자가 모두 키를 뗀 경우 run 클래스 삭제해서 대기모드로 변경
         if (!key.keyDown["left"] && !key.keyDown["right"]) {
             this.el.classList.remove("run");
@@ -137,6 +164,13 @@ class Hero {
         if (!key.keyDown["attack"]) {
             this.el.classList.remove("attack");
             bulletComProp.launch = false; //수리검 다시 던질 수 있도록 세팅
+        }
+
+        //슬라이드 키를 뗀 경우
+        if (!key.keyDown["slide"]) {
+            this.el.classList.remove("slide");
+            this.slideDown = false;
+            this.slideTime = 0;
         }
 
         //hero 엘리먼트의 부모인 hero_box에 translateX를 이용해서 hero_box의 위치를 변경시킨다.
