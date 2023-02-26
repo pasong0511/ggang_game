@@ -84,6 +84,21 @@
     }
 }
 
+@keyframes hero_levelup {
+    0% {
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+    }
+    80% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+}
+
 .hero_box {
     position: fixed;
     left: 0;
@@ -143,6 +158,23 @@
     background-image: url("../images/ninja_slide.png");
     background-size: 1498px 182px;
     animation: hero_slide 0.7s 1 steps(10); /*공격을 1회만 반복*/
+}
+
+.hero_box .level_up {
+    position: absolute;
+    left: 50%;
+    bottom: 100%;
+    width: 200px;
+    height: 42px;
+    background-image: url("../images/levelup.png");
+    background-size: cover;
+    transform: translateX(-50%);
+    opacity: 0;
+}
+
+.hero_box .level_up.active {
+    animation: hero_levelup 1s linear;
+    animation-fill-mode: both;
 }
 
 .hero_bullet {
